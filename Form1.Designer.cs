@@ -44,15 +44,20 @@
             jPGToolStripMenuItem = new ToolStripMenuItem();
             pNGToolStripMenuItem = new ToolStripMenuItem();
             saveToolStripMenuItem1 = new ToolStripMenuItem();
+            authorToolStripMenuItem = new ToolStripMenuItem();
+            colourPickerLB = new PictureBox();
+            colourPickerRB = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)widthTrackBar).BeginInit();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)colourPickerLB).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)colourPickerRB).BeginInit();
             SuspendLayout();
             // 
             // drawingBoard
             // 
-            drawingBoard.Location = new Point(26, 120);
+            drawingBoard.Location = new Point(12, 120);
             drawingBoard.Name = "drawingBoard";
-            drawingBoard.Size = new Size(762, 318);
+            drawingBoard.Size = new Size(776, 318);
             drawingBoard.TabIndex = 0;
             drawingBoard.Paint += drawingBoard_Paint;
             drawingBoard.MouseDown += drawingBoard_MouseDown;
@@ -61,9 +66,9 @@
             // 
             // btn_PenColor
             // 
-            btn_PenColor.Location = new Point(26, 58);
+            btn_PenColor.Location = new Point(20, 40);
             btn_PenColor.Name = "btn_PenColor";
-            btn_PenColor.Size = new Size(138, 45);
+            btn_PenColor.Size = new Size(60, 23);
             btn_PenColor.TabIndex = 1;
             btn_PenColor.Text = "Colour";
             btn_PenColor.UseVisualStyleBackColor = true;
@@ -71,7 +76,7 @@
             // 
             // btn_PenWidth
             // 
-            btn_PenWidth.Location = new Point(212, 40);
+            btn_PenWidth.Location = new Point(113, 40);
             btn_PenWidth.Name = "btn_PenWidth";
             btn_PenWidth.Size = new Size(75, 23);
             btn_PenWidth.TabIndex = 2;
@@ -81,7 +86,7 @@
             // 
             // btnSaveAsJPEG
             // 
-            btnSaveAsJPEG.Location = new Point(320, 51);
+            btnSaveAsJPEG.Location = new Point(213, 51);
             btnSaveAsJPEG.Name = "btnSaveAsJPEG";
             btnSaveAsJPEG.Size = new Size(75, 23);
             btnSaveAsJPEG.TabIndex = 3;
@@ -91,7 +96,7 @@
             // 
             // btnSaveAsPNG
             // 
-            btnSaveAsPNG.Location = new Point(320, 80);
+            btnSaveAsPNG.Location = new Point(213, 80);
             btnSaveAsPNG.Name = "btnSaveAsPNG";
             btnSaveAsPNG.Size = new Size(75, 23);
             btnSaveAsPNG.TabIndex = 4;
@@ -101,14 +106,14 @@
             // 
             // widthTrackBar
             // 
-            widthTrackBar.Location = new Point(198, 69);
+            widthTrackBar.Location = new Point(99, 69);
             widthTrackBar.Name = "widthTrackBar";
             widthTrackBar.Size = new Size(104, 45);
             widthTrackBar.TabIndex = 5;
             // 
             // btnEraser
             // 
-            btnEraser.Location = new Point(401, 51);
+            btnEraser.Location = new Point(700, 51);
             btnEraser.Name = "btnEraser";
             btnEraser.Size = new Size(76, 52);
             btnEraser.TabIndex = 6;
@@ -117,7 +122,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, saveToolStripMenuItem1 });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, saveToolStripMenuItem1, authorToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
@@ -129,44 +134,49 @@
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, openToolStripMenuItem, saveToolStripMenuItem, saveAsToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
-            fileToolStripMenuItem.Text = "FIle";
+            fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(112, 22);
+            newToolStripMenuItem.Size = new Size(180, 22);
             newToolStripMenuItem.Text = "New";
+            newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(112, 22);
+            openToolStripMenuItem.Size = new Size(180, 22);
             openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(112, 22);
+            saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // saveAsToolStripMenuItem
             // 
             saveAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { jPGToolStripMenuItem, pNGToolStripMenuItem });
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(112, 22);
+            saveAsToolStripMenuItem.Size = new Size(180, 22);
             saveAsToolStripMenuItem.Text = "Save as";
             // 
             // jPGToolStripMenuItem
             // 
             jPGToolStripMenuItem.Name = "jPGToolStripMenuItem";
-            jPGToolStripMenuItem.Size = new Size(98, 22);
+            jPGToolStripMenuItem.Size = new Size(180, 22);
             jPGToolStripMenuItem.Text = "JPG";
+            jPGToolStripMenuItem.Click += jPGToolStripMenuItem_Click;
             // 
             // pNGToolStripMenuItem
             // 
             pNGToolStripMenuItem.Name = "pNGToolStripMenuItem";
-            pNGToolStripMenuItem.Size = new Size(98, 22);
+            pNGToolStripMenuItem.Size = new Size(180, 22);
             pNGToolStripMenuItem.Text = "PNG";
+            pNGToolStripMenuItem.Click += pNGToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem1
             // 
@@ -174,11 +184,40 @@
             saveToolStripMenuItem1.Size = new Size(43, 20);
             saveToolStripMenuItem1.Text = "Save";
             // 
+            // authorToolStripMenuItem
+            // 
+            authorToolStripMenuItem.Name = "authorToolStripMenuItem";
+            authorToolStripMenuItem.Size = new Size(56, 20);
+            authorToolStripMenuItem.Text = "Author";
+            authorToolStripMenuItem.Click += authorToolStripMenuItem_Click;
+            // 
+            // colourPickerLB
+            // 
+            colourPickerLB.BackColor = Color.Black;
+            colourPickerLB.Location = new Point(20, 69);
+            colourPickerLB.Name = "colourPickerLB";
+            colourPickerLB.Size = new Size(25, 25);
+            colourPickerLB.TabIndex = 8;
+            colourPickerLB.TabStop = false;
+            colourPickerLB.Click += colourPickerLB_Click;
+            // 
+            // colourPickerRB
+            // 
+            colourPickerRB.BackColor = Color.Red;
+            colourPickerRB.Location = new Point(55, 69);
+            colourPickerRB.Name = "colourPickerRB";
+            colourPickerRB.Size = new Size(25, 25);
+            colourPickerRB.TabIndex = 9;
+            colourPickerRB.TabStop = false;
+            colourPickerRB.Click += colourPickerRB_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(colourPickerRB);
+            Controls.Add(colourPickerLB);
             Controls.Add(btnEraser);
             Controls.Add(widthTrackBar);
             Controls.Add(btnSaveAsPNG);
@@ -193,6 +232,8 @@
             ((System.ComponentModel.ISupportInitialize)widthTrackBar).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)colourPickerLB).EndInit();
+            ((System.ComponentModel.ISupportInitialize)colourPickerRB).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -215,5 +256,8 @@
         private ToolStripMenuItem jPGToolStripMenuItem;
         private ToolStripMenuItem pNGToolStripMenuItem;
         private ToolStripMenuItem saveToolStripMenuItem1;
+        private ToolStripMenuItem authorToolStripMenuItem;
+        private PictureBox colourPickerLB;
+        private PictureBox colourPickerRB;
     }
 }

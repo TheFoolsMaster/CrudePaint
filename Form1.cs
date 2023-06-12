@@ -9,6 +9,7 @@ namespace CrudePaint
         private Pen pen;
         private Point startPoint;
         private int penWidth = 1;
+        private string currentFilePath = string.Empty;
         public Form1()
         {
             InitializeComponent();
@@ -86,6 +87,84 @@ namespace CrudePaint
         }
 
         private void drawingBoard_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void authorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This program was created by JP", "Author", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(currentFilePath))
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "JPEG Image|*.jpeg|PNG Image|*.png";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    currentFilePath = saveFileDialog.FileName;
+                }
+                else
+                {
+                    return; // User canceled the save operation
+                }
+            }
+
+            string extension = Path.GetExtension(currentFilePath).ToLower();
+            ImageFormat imageFormat = ImageFormat.Jpeg;
+
+            if (extension == ".png")
+            {
+                imageFormat = ImageFormat.Png;
+            }
+
+            Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+            drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
+            bitmap.Save(currentFilePath, imageFormat);
+        }
+
+        private void jPGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JPEG Image|*.jpeg";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+                drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
+                bitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
+            }
+        }
+
+        private void pNGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PNG Image|*.png";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+                drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
+                bitmap.Save(saveFileDialog.FileName, ImageFormat.Png);
+            }
+        }
+
+        private void colourPickerLB_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void colourPickerRB_Click(object sender, EventArgs e)
         {
 
         }
