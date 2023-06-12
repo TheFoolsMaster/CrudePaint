@@ -30,9 +30,22 @@
         {
             drawingBoard = new Panel();
             btn_PenColor = new Button();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            btn_PenWidth = new Button();
+            btnSaveAsJPEG = new Button();
+            btnSaveAsPNG = new Button();
+            widthTrackBar = new TrackBar();
+            btnEraser = new Button();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            newToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
+            saveToolStripMenuItem = new ToolStripMenuItem();
+            saveAsToolStripMenuItem = new ToolStripMenuItem();
+            jPGToolStripMenuItem = new ToolStripMenuItem();
+            pNGToolStripMenuItem = new ToolStripMenuItem();
+            saveToolStripMenuItem1 = new ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)widthTrackBar).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // drawingBoard
@@ -55,57 +68,151 @@
             btn_PenColor.UseVisualStyleBackColor = true;
             btn_PenColor.Click += btn_PenColor_Click;
             // 
-            // button1
+            // btn_PenWidth
             // 
-            button1.Location = new Point(35, 103);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Width";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += btn_PenWidth_Click;
+            btn_PenWidth.Location = new Point(35, 103);
+            btn_PenWidth.Name = "btn_PenWidth";
+            btn_PenWidth.Size = new Size(75, 23);
+            btn_PenWidth.TabIndex = 2;
+            btn_PenWidth.Text = "Width";
+            btn_PenWidth.UseVisualStyleBackColor = true;
+            btn_PenWidth.Click += btn_PenWidth_Click;
             // 
-            // button2
+            // btnSaveAsJPEG
             // 
-            button2.Location = new Point(35, 152);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 3;
-            button2.Text = "save jpg";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += btnSaveAsJPEG_Click;
+            btnSaveAsJPEG.Location = new Point(35, 152);
+            btnSaveAsJPEG.Name = "btnSaveAsJPEG";
+            btnSaveAsJPEG.Size = new Size(75, 23);
+            btnSaveAsJPEG.TabIndex = 3;
+            btnSaveAsJPEG.Text = "Save JPEG";
+            btnSaveAsJPEG.UseVisualStyleBackColor = true;
+            btnSaveAsJPEG.Click += btnSaveAsJPEG_Click;
             // 
-            // button3
+            // btnSaveAsPNG
             // 
-            button3.Location = new Point(35, 200);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 4;
-            button3.Text = "save png";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += btnSaveAsPNG_Click;
+            btnSaveAsPNG.Location = new Point(35, 200);
+            btnSaveAsPNG.Name = "btnSaveAsPNG";
+            btnSaveAsPNG.Size = new Size(75, 23);
+            btnSaveAsPNG.TabIndex = 4;
+            btnSaveAsPNG.Text = "Save PNG";
+            btnSaveAsPNG.UseVisualStyleBackColor = true;
+            btnSaveAsPNG.Click += btnSaveAsPNG_Click;
+            // 
+            // widthTrackBar
+            // 
+            widthTrackBar.Location = new Point(35, 295);
+            widthTrackBar.Name = "widthTrackBar";
+            widthTrackBar.Size = new Size(104, 45);
+            widthTrackBar.TabIndex = 5;
+            // 
+            // btnEraser
+            // 
+            btnEraser.Location = new Point(35, 248);
+            btnEraser.Name = "btnEraser";
+            btnEraser.Size = new Size(75, 23);
+            btnEraser.TabIndex = 6;
+            btnEraser.Text = "Eraser";
+            btnEraser.UseVisualStyleBackColor = true;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, saveToolStripMenuItem1 });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.TabIndex = 7;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, openToolStripMenuItem, saveToolStripMenuItem, saveAsToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "FIle";
+            // 
+            // newToolStripMenuItem
+            // 
+            newToolStripMenuItem.Name = "newToolStripMenuItem";
+            newToolStripMenuItem.Size = new Size(180, 22);
+            newToolStripMenuItem.Text = "New";
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Text = "Open";
+            // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            saveAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { jPGToolStripMenuItem, pNGToolStripMenuItem });
+            saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            saveAsToolStripMenuItem.Size = new Size(180, 22);
+            saveAsToolStripMenuItem.Text = "Save as";
+            // 
+            // jPGToolStripMenuItem
+            // 
+            jPGToolStripMenuItem.Name = "jPGToolStripMenuItem";
+            jPGToolStripMenuItem.Size = new Size(180, 22);
+            jPGToolStripMenuItem.Text = "JPG";
+            // 
+            // pNGToolStripMenuItem
+            // 
+            pNGToolStripMenuItem.Name = "pNGToolStripMenuItem";
+            pNGToolStripMenuItem.Size = new Size(180, 22);
+            pNGToolStripMenuItem.Text = "PNG";
+            // 
+            // saveToolStripMenuItem1
+            // 
+            saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            saveToolStripMenuItem1.Size = new Size(43, 20);
+            saveToolStripMenuItem1.Text = "Save";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnEraser);
+            Controls.Add(widthTrackBar);
+            Controls.Add(btnSaveAsPNG);
+            Controls.Add(btnSaveAsJPEG);
+            Controls.Add(btn_PenWidth);
             Controls.Add(btn_PenColor);
             Controls.Add(drawingBoard);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)widthTrackBar).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Panel drawingBoard;
         private Button btn_PenColor;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private Button btn_PenWidth;
+        private Button btnSaveAsJPEG;
+        private Button btnSaveAsPNG;
+        private TrackBar widthTrackBar;
+        private Button btnEraser;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem newToolStripMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private ToolStripMenuItem jPGToolStripMenuItem;
+        private ToolStripMenuItem pNGToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem1;
     }
 }
