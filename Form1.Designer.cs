@@ -55,6 +55,7 @@
             // 
             // drawingBoard
             // 
+            drawingBoard.BackColor = Color.White;
             drawingBoard.Location = new Point(12, 120);
             drawingBoard.Name = "drawingBoard";
             drawingBoard.Size = new Size(776, 318);
@@ -139,21 +140,21 @@
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(180, 22);
+            newToolStripMenuItem.Size = new Size(112, 22);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Size = new Size(112, 22);
             openToolStripMenuItem.Text = "Open";
             openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Size = new Size(112, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
@@ -161,20 +162,20 @@
             // 
             saveAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { jPGToolStripMenuItem, pNGToolStripMenuItem });
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(180, 22);
+            saveAsToolStripMenuItem.Size = new Size(112, 22);
             saveAsToolStripMenuItem.Text = "Save as";
             // 
             // jPGToolStripMenuItem
             // 
             jPGToolStripMenuItem.Name = "jPGToolStripMenuItem";
-            jPGToolStripMenuItem.Size = new Size(180, 22);
+            jPGToolStripMenuItem.Size = new Size(98, 22);
             jPGToolStripMenuItem.Text = "JPG";
             jPGToolStripMenuItem.Click += jPGToolStripMenuItem_Click;
             // 
             // pNGToolStripMenuItem
             // 
             pNGToolStripMenuItem.Name = "pNGToolStripMenuItem";
-            pNGToolStripMenuItem.Size = new Size(180, 22);
+            pNGToolStripMenuItem.Size = new Size(98, 22);
             pNGToolStripMenuItem.Text = "PNG";
             pNGToolStripMenuItem.Click += pNGToolStripMenuItem_Click;
             // 
@@ -203,7 +204,7 @@
             // 
             // colourPickerRB
             // 
-            colourPickerRB.BackColor = Color.Red;
+            colourPickerRB.BackColor = Color.White;
             colourPickerRB.Location = new Point(55, 69);
             colourPickerRB.Name = "colourPickerRB";
             colourPickerRB.Size = new Size(25, 25);
