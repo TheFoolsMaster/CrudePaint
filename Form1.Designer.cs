@@ -50,9 +50,9 @@
             // 
             // drawingBoard
             // 
-            drawingBoard.Location = new Point(320, 103);
+            drawingBoard.Location = new Point(26, 120);
             drawingBoard.Name = "drawingBoard";
-            drawingBoard.Size = new Size(374, 208);
+            drawingBoard.Size = new Size(762, 318);
             drawingBoard.TabIndex = 0;
             drawingBoard.Paint += drawingBoard_Paint;
             drawingBoard.MouseDown += drawingBoard_MouseDown;
@@ -61,9 +61,9 @@
             // 
             // btn_PenColor
             // 
-            btn_PenColor.Location = new Point(35, 58);
+            btn_PenColor.Location = new Point(26, 58);
             btn_PenColor.Name = "btn_PenColor";
-            btn_PenColor.Size = new Size(75, 23);
+            btn_PenColor.Size = new Size(138, 45);
             btn_PenColor.TabIndex = 1;
             btn_PenColor.Text = "Colour";
             btn_PenColor.UseVisualStyleBackColor = true;
@@ -71,7 +71,7 @@
             // 
             // btn_PenWidth
             // 
-            btn_PenWidth.Location = new Point(35, 103);
+            btn_PenWidth.Location = new Point(212, 40);
             btn_PenWidth.Name = "btn_PenWidth";
             btn_PenWidth.Size = new Size(75, 23);
             btn_PenWidth.TabIndex = 2;
@@ -81,7 +81,7 @@
             // 
             // btnSaveAsJPEG
             // 
-            btnSaveAsJPEG.Location = new Point(35, 152);
+            btnSaveAsJPEG.Location = new Point(320, 51);
             btnSaveAsJPEG.Name = "btnSaveAsJPEG";
             btnSaveAsJPEG.Size = new Size(75, 23);
             btnSaveAsJPEG.TabIndex = 3;
@@ -91,7 +91,7 @@
             // 
             // btnSaveAsPNG
             // 
-            btnSaveAsPNG.Location = new Point(35, 200);
+            btnSaveAsPNG.Location = new Point(320, 80);
             btnSaveAsPNG.Name = "btnSaveAsPNG";
             btnSaveAsPNG.Size = new Size(75, 23);
             btnSaveAsPNG.TabIndex = 4;
@@ -101,16 +101,16 @@
             // 
             // widthTrackBar
             // 
-            widthTrackBar.Location = new Point(35, 295);
+            widthTrackBar.Location = new Point(198, 69);
             widthTrackBar.Name = "widthTrackBar";
             widthTrackBar.Size = new Size(104, 45);
             widthTrackBar.TabIndex = 5;
             // 
             // btnEraser
             // 
-            btnEraser.Location = new Point(35, 248);
+            btnEraser.Location = new Point(401, 51);
             btnEraser.Name = "btnEraser";
-            btnEraser.Size = new Size(75, 23);
+            btnEraser.Size = new Size(76, 52);
             btnEraser.TabIndex = 6;
             btnEraser.Text = "Eraser";
             btnEraser.UseVisualStyleBackColor = true;
