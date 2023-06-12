@@ -47,6 +47,7 @@
             authorToolStripMenuItem = new ToolStripMenuItem();
             colourPickerLB = new PictureBox();
             colourPickerRB = new PictureBox();
+            lbl_PenWidth = new Label();
             ((System.ComponentModel.ISupportInitialize)widthTrackBar).BeginInit();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)colourPickerLB).BeginInit();
@@ -77,7 +78,7 @@
             // 
             // btn_PenWidth
             // 
-            btn_PenWidth.Location = new Point(113, 40);
+            btn_PenWidth.Location = new Point(320, 51);
             btn_PenWidth.Name = "btn_PenWidth";
             btn_PenWidth.Size = new Size(75, 23);
             btn_PenWidth.TabIndex = 2;
@@ -142,21 +143,21 @@
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(180, 22);
+            newToolStripMenuItem.Size = new Size(112, 22);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Size = new Size(112, 22);
             openToolStripMenuItem.Text = "Open";
             openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Size = new Size(112, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
@@ -164,7 +165,7 @@
             // 
             saveAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { jPGToolStripMenuItem, pNGToolStripMenuItem });
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(180, 22);
+            saveAsToolStripMenuItem.Size = new Size(112, 22);
             saveAsToolStripMenuItem.Text = "Save as";
             // 
             // jPGToolStripMenuItem
@@ -214,11 +215,21 @@
             colourPickerRB.TabStop = false;
             colourPickerRB.Click += colourPickerRB_Click;
             // 
+            // lbl_PenWidth
+            // 
+            lbl_PenWidth.AutoSize = true;
+            lbl_PenWidth.Location = new Point(99, 44);
+            lbl_PenWidth.Name = "lbl_PenWidth";
+            lbl_PenWidth.Size = new Size(65, 15);
+            lbl_PenWidth.TabIndex = 10;
+            lbl_PenWidth.Text = "Pen Width:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lbl_PenWidth);
             Controls.Add(colourPickerRB);
             Controls.Add(colourPickerLB);
             Controls.Add(btnEraser);
@@ -262,5 +273,6 @@
         private ToolStripMenuItem authorToolStripMenuItem;
         private PictureBox colourPickerLB;
         private PictureBox colourPickerRB;
+        private Label lbl_PenWidth;
     }
 }

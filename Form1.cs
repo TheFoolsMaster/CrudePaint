@@ -21,6 +21,7 @@ namespace CrudePaint
             colourPickerLB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerRB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             pen = new Pen(mouseLB);
+            lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
         }
 
         private void drawingBoard_MouseDown(object sender, MouseEventArgs e)
@@ -215,6 +216,9 @@ namespace CrudePaint
             int trackBarValue = widthTrackBar.Value;
             penWidth = trackBarValue;
             pen.Width = penWidth;
+
+            // Update the pen width label
+            lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
         }
     }
 }
