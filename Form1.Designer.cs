@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             drawingBoard = new Panel();
-            btn_PenColor = new Button();
-            btn_PenWidth = new Button();
-            btnSaveAsJPEG = new Button();
-            btnSaveAsPNG = new Button();
             widthTrackBar = new TrackBar();
             btnEraser = new Button();
             menuStrip1 = new MenuStrip();
@@ -65,46 +61,6 @@
             drawingBoard.MouseDown += drawingBoard_MouseDown;
             drawingBoard.MouseMove += drawingBoard_MouseMove;
             drawingBoard.MouseUp += drawingBoard_MouseUp;
-            // 
-            // btn_PenColor
-            // 
-            btn_PenColor.Location = new Point(20, 40);
-            btn_PenColor.Name = "btn_PenColor";
-            btn_PenColor.Size = new Size(60, 23);
-            btn_PenColor.TabIndex = 1;
-            btn_PenColor.Text = "Colour";
-            btn_PenColor.UseVisualStyleBackColor = true;
-            btn_PenColor.Click += btn_PenColor_Click;
-            // 
-            // btn_PenWidth
-            // 
-            btn_PenWidth.Location = new Point(320, 51);
-            btn_PenWidth.Name = "btn_PenWidth";
-            btn_PenWidth.Size = new Size(75, 23);
-            btn_PenWidth.TabIndex = 2;
-            btn_PenWidth.Text = "Width";
-            btn_PenWidth.UseVisualStyleBackColor = true;
-            btn_PenWidth.Click += btn_PenWidth_Click;
-            // 
-            // btnSaveAsJPEG
-            // 
-            btnSaveAsJPEG.Location = new Point(213, 51);
-            btnSaveAsJPEG.Name = "btnSaveAsJPEG";
-            btnSaveAsJPEG.Size = new Size(75, 23);
-            btnSaveAsJPEG.TabIndex = 3;
-            btnSaveAsJPEG.Text = "Save JPEG";
-            btnSaveAsJPEG.UseVisualStyleBackColor = true;
-            btnSaveAsJPEG.Click += btnSaveAsJPEG_Click;
-            // 
-            // btnSaveAsPNG
-            // 
-            btnSaveAsPNG.Location = new Point(213, 80);
-            btnSaveAsPNG.Name = "btnSaveAsPNG";
-            btnSaveAsPNG.Size = new Size(75, 23);
-            btnSaveAsPNG.TabIndex = 4;
-            btnSaveAsPNG.Text = "Save PNG";
-            btnSaveAsPNG.UseVisualStyleBackColor = true;
-            btnSaveAsPNG.Click += btnSaveAsPNG_Click;
             // 
             // widthTrackBar
             // 
@@ -187,6 +143,7 @@
             saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
             saveToolStripMenuItem1.Size = new Size(43, 20);
             saveToolStripMenuItem1.Text = "Save";
+            saveToolStripMenuItem1.Click += saveToolStripMenuItem_Click;
             // 
             // authorToolStripMenuItem
             // 
@@ -234,10 +191,6 @@
             Controls.Add(colourPickerLB);
             Controls.Add(btnEraser);
             Controls.Add(widthTrackBar);
-            Controls.Add(btnSaveAsPNG);
-            Controls.Add(btnSaveAsJPEG);
-            Controls.Add(btn_PenWidth);
-            Controls.Add(btn_PenColor);
             Controls.Add(drawingBoard);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -255,10 +208,6 @@
         #endregion
 
         private Panel drawingBoard;
-        private Button btn_PenColor;
-        private Button btn_PenWidth;
-        private Button btnSaveAsJPEG;
-        private Button btnSaveAsPNG;
         private TrackBar widthTrackBar;
         private Button btnEraser;
         private MenuStrip menuStrip1;
