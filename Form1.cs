@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace CrudePaint
 {
@@ -7,6 +8,7 @@ namespace CrudePaint
         private Graphics graphics;
         private Pen pen;
         private Point startPoint;
+        private int penWidth = 1;
         public Form1()
         {
             InitializeComponent();
@@ -47,6 +49,38 @@ namespace CrudePaint
             {
                 pen.Color = colorDialog.Color;
                 btn_PenColor.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void btn_PenWidth_Click(object sender, EventArgs e)
+        {
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter pen width:", "Pen Width", penWidth.ToString());
+            if (int.TryParse(input, out int width))
+            {
+                penWidth = width;
+                pen.Width = penWidth;
+            }
+        }
+        private void btnSaveAsPNG_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PNG Image|*.png";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+                drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
+                bitmap.Save(saveFileDialog.FileName, ImageFormat.Png);
+            }
+        }
+        private void btnSaveAsJPEG_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JPEG Image|*.jpeg";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+                drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
+                bitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
             }
         }
     }
