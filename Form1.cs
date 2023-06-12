@@ -1,7 +1,9 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace CrudePaint
 {
@@ -15,6 +17,7 @@ namespace CrudePaint
         private Color mouseLB = Color.Black;
         private Color mouseRB = Color.White;
         private bool isDrawing = false;
+        private List<SaveData> lines;
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +29,7 @@ namespace CrudePaint
             pen.StartCap = LineCap.Round;
             pen.EndCap = LineCap.Round;
             lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
+            lines = new List<SaveData>();
         }
 
         private void drawingBoard_MouseDown(object sender, MouseEventArgs e)
@@ -35,22 +39,28 @@ namespace CrudePaint
                 drawingBoard.Capture = true;
                 startPoint = e.Location;
                 isDrawing = true;
+                pen = new Pen(e.Button == MouseButtons.Left ? mouseLB : mouseRB, penWidth);
             }
         }
 
         private void drawingBoard_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (isDrawing)
             {
-                pen.Color = mouseLB;
-                graphics.DrawLine(pen, startPoint, e.Location);
-                startPoint = e.Location;
-            }
-            if (e.Button == MouseButtons.Right)
-            {
-                pen.Color = mouseRB;
-                graphics.DrawLine(pen, startPoint, e.Location);
-                startPoint = e.Location;
+                if (e.Button == MouseButtons.Left)
+                {
+                    pen.Color = mouseLB;
+                    graphics.DrawLine(pen, startPoint, e.Location);
+                    lines.Add(new SaveData { Pen = new Pen(pen.Color, pen.Width), StartPoint = startPoint, EndPoint = e.Location });
+                    startPoint = e.Location;
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    pen.Color = mouseRB;
+                    graphics.DrawLine(pen, startPoint, e.Location);
+                    lines.Add(new SaveData { Pen = new Pen(pen.Color, pen.Width), StartPoint = startPoint, EndPoint = e.Location });
+                    startPoint = e.Location;
+                }
             }
         }
 
@@ -127,7 +137,18 @@ namespace CrudePaint
             }
 
             Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
-            drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.Clear(Color.White); // Clear with white background
+
+                // Draw the lines on the bitmap
+                foreach (var line in lines)
+                {
+                    g.DrawLine(line.Pen, line.StartPoint, line.EndPoint);
+                }
+            }
+
             bitmap.Save(currentFilePath, imageFormat);
         }
 
