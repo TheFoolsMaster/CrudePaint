@@ -7,11 +7,12 @@ namespace CrudePaint
     public partial class Form1 : Form
     {
         private Graphics graphics;
-        private Pen penLB;
-        private Pen penRB;
+        private Pen pen;
         private Point startPoint;
         private int penWidth = 1;
         private string currentFilePath = string.Empty;
+        private Color mouseLB = Color.Black;
+        private Color mouseRB = Color.White;
         public Form1()
         {
             InitializeComponent();
@@ -19,18 +20,12 @@ namespace CrudePaint
             drawingBoard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerLB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerRB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            penLB = new Pen(Color.Black);
-            penRB = new Pen(Color.White);
+            pen = new Pen(mouseLB);
         }
 
         private void drawingBoard_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                drawingBoard.Capture = true;
-                startPoint = e.Location;
-            }
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
             {
                 drawingBoard.Capture = true;
                 startPoint = e.Location;
@@ -41,23 +36,21 @@ namespace CrudePaint
         {
             if (e.Button == MouseButtons.Left)
             {
-                graphics.DrawLine(penLB, startPoint, e.Location);
+                pen.Color = mouseLB;
+                graphics.DrawLine(pen, startPoint, e.Location);
                 startPoint = e.Location;
             }
             if (e.Button == MouseButtons.Right)
             {
-                graphics.DrawLine(penRB, startPoint, e.Location);
+                pen.Color = mouseRB;
+                graphics.DrawLine(pen, startPoint, e.Location);
                 startPoint = e.Location;
             }
         }
 
         private void drawingBoard_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                drawingBoard.Capture = false;
-            }
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
             {
                 drawingBoard.Capture = false;
             }
@@ -68,18 +61,18 @@ namespace CrudePaint
             ColorDialog colorDialog = new ColorDialog();
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                penLB.Color = colorDialog.Color;
+                pen.Color = colorDialog.Color;
                 btn_PenColor.BackColor = colorDialog.Color;
             }
         }
 
         private void btn_PenWidth_Click(object sender, EventArgs e)
         {
-            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter penLB width:", "Pen Width", penWidth.ToString());
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter pen width:", "Pen Width", penWidth.ToString());
             if (int.TryParse(input, out int width))
             {
                 penWidth = width;
-                penLB.Width = penWidth;
+                pen.Width = penWidth;
             }
         }
         private void btnSaveAsPNG_Click(object sender, EventArgs e)
@@ -203,7 +196,7 @@ namespace CrudePaint
             if (colorPicker.ShowDialog() == DialogResult.OK)
             {
                 colourPickerLB.BackColor = colorPicker.Color;
-                penLB.Color = colorPicker.Color;
+                mouseLB = colorPicker.Color;
             }
         }
 
@@ -213,8 +206,15 @@ namespace CrudePaint
             if (colorPicker.ShowDialog() == DialogResult.OK)
             {
                 colourPickerRB.BackColor = colorPicker.Color;
-                penRB.Color = colorPicker.Color;
+                mouseRB = colorPicker.Color;
             }
+        }
+
+        private void widthTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            int trackBarValue = widthTrackBar.Value;
+            penWidth = trackBarValue;
+            pen.Width = penWidth;
         }
     }
 }
