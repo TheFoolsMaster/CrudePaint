@@ -54,6 +54,7 @@
             drawingBoard.Name = "drawingBoard";
             drawingBoard.Size = new Size(374, 208);
             drawingBoard.TabIndex = 0;
+            drawingBoard.Paint += drawingBoard_Paint;
             drawingBoard.MouseDown += drawingBoard_MouseDown;
             drawingBoard.MouseMove += drawingBoard_MouseMove;
             drawingBoard.MouseUp += drawingBoard_MouseUp;
@@ -133,38 +134,38 @@
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(180, 22);
+            newToolStripMenuItem.Size = new Size(112, 22);
             newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Size = new Size(112, 22);
             openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Size = new Size(112, 22);
             saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             saveAsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { jPGToolStripMenuItem, pNGToolStripMenuItem });
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(180, 22);
+            saveAsToolStripMenuItem.Size = new Size(112, 22);
             saveAsToolStripMenuItem.Text = "Save as";
             // 
             // jPGToolStripMenuItem
             // 
             jPGToolStripMenuItem.Name = "jPGToolStripMenuItem";
-            jPGToolStripMenuItem.Size = new Size(180, 22);
+            jPGToolStripMenuItem.Size = new Size(98, 22);
             jPGToolStripMenuItem.Text = "JPG";
             // 
             // pNGToolStripMenuItem
             // 
             pNGToolStripMenuItem.Name = "pNGToolStripMenuItem";
-            pNGToolStripMenuItem.Size = new Size(180, 22);
+            pNGToolStripMenuItem.Size = new Size(98, 22);
             pNGToolStripMenuItem.Text = "PNG";
             // 
             // saveToolStripMenuItem1

@@ -13,6 +13,7 @@ namespace CrudePaint
         {
             InitializeComponent();
             graphics = drawingBoard.CreateGraphics();
+            drawingBoard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             pen = new Pen(Color.Black);
         }
 
@@ -82,6 +83,11 @@ namespace CrudePaint
                 drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
                 bitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
             }
+        }
+
+        private void drawingBoard_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
