@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace CrudePaint
         private string currentFilePath = string.Empty;
         private Color mouseLB = Color.Black;
         private Color mouseRB = Color.White;
+        private bool isDrawing = false;
         public Form1()
         {
             InitializeComponent();
@@ -20,7 +22,9 @@ namespace CrudePaint
             drawingBoard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerLB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerRB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pen = new Pen(mouseLB);
+            pen = new Pen(mouseLB, penWidth);
+            pen.StartCap = LineCap.Round;
+            pen.EndCap = LineCap.Round;
             lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
         }
 
@@ -30,6 +34,7 @@ namespace CrudePaint
             {
                 drawingBoard.Capture = true;
                 startPoint = e.Location;
+                isDrawing = true;
             }
         }
 
@@ -54,6 +59,7 @@ namespace CrudePaint
             if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
             {
                 drawingBoard.Capture = false;
+                isDrawing = false;
             }
         }
 
