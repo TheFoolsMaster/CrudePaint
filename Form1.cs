@@ -103,8 +103,9 @@ namespace CrudePaint
             DialogResult result = MessageBox.Show("Creating a new canvas will clear the current drawing. Do you want to proceed?", "New Canvas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                // Clear the drawing bitmap
+                // Clear the drawing bitmap and lines
                 graphics.Clear(Color.Transparent);
+                lines.Clear();
                 drawingBoard.Invalidate();
                 currentFilePath = string.Empty;
             }
@@ -138,21 +139,17 @@ namespace CrudePaint
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(currentFilePath))
+            if (!string.IsNullOrEmpty(currentFilePath))
+            {
+                SaveImage(currentFilePath);
+            }
+            else
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "JPEG Image|*.jpeg|PNG Image|*.png";
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     currentFilePath = saveFileDialog.FileName;
-                    SaveImage(currentFilePath);
-                }
-            }
-            else
-            {
-                DialogResult result = MessageBox.Show("Do you want to overwrite the existing file?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
                     SaveImage(currentFilePath);
                 }
             }
