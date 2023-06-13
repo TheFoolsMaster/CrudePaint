@@ -57,7 +57,6 @@
             drawingBoard.Name = "drawingBoard";
             drawingBoard.Size = new Size(776, 318);
             drawingBoard.TabIndex = 0;
-            drawingBoard.Paint += drawingBoard_Paint;
             drawingBoard.MouseDown += drawingBoard_MouseDown;
             drawingBoard.MouseMove += drawingBoard_MouseMove;
             drawingBoard.MouseUp += drawingBoard_MouseUp;

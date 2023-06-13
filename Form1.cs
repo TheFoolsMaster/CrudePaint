@@ -1,9 +1,10 @@
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using static System.Windows.Forms.LinkLabel;
 
 namespace CrudePaint
 {
@@ -18,13 +19,12 @@ namespace CrudePaint
         private Color mouseRB = Color.White;
         private bool isDrawing = false;
         private List<SaveData> lines;
-        private object filePathLock = new object();
-        private string saveFilePath = string.Empty;
+        private Bitmap drawingBitmap; // New bitmap for drawing
+        private Bitmap offScreenBitmap; // Off-screen buffer
 
         public Form1()
         {
             InitializeComponent();
-            graphics = drawingBoard.CreateGraphics();
             drawingBoard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerLB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerRB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -33,6 +33,15 @@ namespace CrudePaint
             pen.EndCap = LineCap.Round;
             lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
             lines = new List<SaveData>();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            // Create the initial drawing bitmap with the same size as the drawing board
+            drawingBitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+            graphics = Graphics.FromImage(drawingBitmap);
+            drawingBoard.BackgroundImage = drawingBitmap;
         }
 
         private void drawingBoard_MouseDown(object sender, MouseEventArgs e)
@@ -56,6 +65,7 @@ namespace CrudePaint
                     graphics.DrawLine(pen, startPoint, e.Location);
                     lines.Add(new SaveData { Pen = new Pen(pen.Color, pen.Width), StartPoint = startPoint, EndPoint = e.Location });
                     startPoint = e.Location;
+                    drawingBoard.Invalidate(); // Invalidate the drawing board to request a redraw
                 }
                 else if (e.Button == MouseButtons.Right)
                 {
@@ -63,6 +73,7 @@ namespace CrudePaint
                     graphics.DrawLine(pen, startPoint, e.Location);
                     lines.Add(new SaveData { Pen = new Pen(pen.Color, pen.Width), StartPoint = startPoint, EndPoint = e.Location });
                     startPoint = e.Location;
+                    drawingBoard.Invalidate(); // Invalidate the drawing board to request a redraw
                 }
             }
         }
@@ -78,7 +89,8 @@ namespace CrudePaint
 
         private void drawingBoard_Paint(object sender, PaintEventArgs e)
         {
-
+            // Draw the off-screen buffer onto the screen
+            e.Graphics.DrawImage(offScreenBitmap, Point.Empty);
         }
 
         private void authorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -88,12 +100,13 @@ namespace CrudePaint
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Prompt user to confirm creating a new canvas
             DialogResult result = MessageBox.Show("Creating a new canvas will clear the current drawing. Do you want to proceed?", "New Canvas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                drawingBoard.Refresh(); // Clear the drawing board
-                currentFilePath = string.Empty; // Reset the current file path
+                // Clear the drawing bitmap
+                graphics.Clear(Color.Transparent);
+                drawingBoard.Invalidate();
+                currentFilePath = string.Empty;
             }
         }
 
@@ -105,31 +118,28 @@ namespace CrudePaint
             {
                 string filePath = openFileDialog.FileName;
 
-                // Create a new bitmap from the selected image file
-                Bitmap bitmap = new Bitmap(filePath);
+                // Load the image as the drawing bitmap
+                using (Bitmap bitmap = new Bitmap(filePath))
+                {
+                    graphics.Clear(Color.Transparent);
+                    graphics.DrawImage(bitmap, Point.Empty);
+                }
 
-                // Set the bitmap as the background image of the drawing board
-                drawingBoard.BackgroundImage = new Bitmap(bitmap);
-
-                // Clear the drawing board and reset the current file path
-                drawingBoard.Refresh();
-                currentFilePath = string.Empty;
-
-                // Dispose the original bitmap to release the file reference
-                bitmap.Dispose();
+                drawingBoard.Invalidate();
+                currentFilePath = filePath;
             }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(saveFilePath))
+            if (string.IsNullOrEmpty(currentFilePath))
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "JPEG Image|*.jpeg|PNG Image|*.png";
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    saveFilePath = saveFileDialog.FileName;
-                    SaveImage(saveFilePath);
+                    currentFilePath = saveFileDialog.FileName;
+                    SaveImage(currentFilePath);
                 }
             }
             else
@@ -137,10 +147,11 @@ namespace CrudePaint
                 DialogResult result = MessageBox.Show("Do you want to overwrite the existing file?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    SaveImage(saveFilePath);
+                    SaveImage(currentFilePath);
                 }
             }
         }
+
         private void SaveImage(string filePath)
         {
             string extension = Path.GetExtension(filePath).ToLower();
@@ -151,15 +162,8 @@ namespace CrudePaint
                 imageFormat = ImageFormat.Png;
             }
 
-            // Create a new bitmap and copy the drawing board content onto it
-            Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
-            drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
-
-            // Save the image using the provided file path
-            bitmap.Save(filePath, imageFormat);
-
-            // Dispose the bitmap object
-            bitmap.Dispose();
+            // Save the drawing bitmap using the provided file path
+            drawingBitmap.Save(filePath, imageFormat);
 
             MessageBox.Show("Image saved successfully.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -170,9 +174,7 @@ namespace CrudePaint
             saveFileDialog.Filter = "JPEG Image|*.jpeg";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
-                drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
-                bitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
+                drawingBitmap.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
             }
         }
 
@@ -182,9 +184,7 @@ namespace CrudePaint
             saveFileDialog.Filter = "PNG Image|*.png";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
-                drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
-                bitmap.Save(saveFileDialog.FileName, ImageFormat.Png);
+                drawingBitmap.Save(saveFileDialog.FileName, ImageFormat.Png);
             }
         }
 
@@ -216,6 +216,18 @@ namespace CrudePaint
 
             // Update the pen width label
             lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
+        }
+
+        private void drawingBoard_Resize(object sender, EventArgs e)
+        {
+            // Recreate the off-screen buffer with the new size
+            if (offScreenBitmap != null)
+            {
+                offScreenBitmap.Dispose();
+            }
+            offScreenBitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+            graphics = Graphics.FromImage(offScreenBitmap);
+            graphics.DrawImage(drawingBitmap, Point.Empty);
         }
     }
 }
