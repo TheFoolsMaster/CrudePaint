@@ -118,10 +118,16 @@ namespace CrudePaint
             {
                 string filePath = openFileDialog.FileName;
 
+                // Clear the lines and create a new drawing bitmap
+                lines.Clear();
+                drawingBitmap.Dispose();
+                drawingBitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+                graphics = Graphics.FromImage(drawingBitmap);
+                drawingBoard.BackgroundImage = drawingBitmap;
+
                 // Load the image as the drawing bitmap
                 using (Bitmap bitmap = new Bitmap(filePath))
                 {
-                    graphics.Clear(Color.Transparent);
                     graphics.DrawImage(bitmap, Point.Empty);
                 }
 
@@ -162,8 +168,25 @@ namespace CrudePaint
                 imageFormat = ImageFormat.Png;
             }
 
-            // Save the drawing bitmap using the provided file path
-            drawingBitmap.Save(filePath, imageFormat);
+            // Create a new bitmap with the same size as the drawing board
+            Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+
+            // Create a graphics object from the new bitmap
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                // Fill the entire bitmap with white color
+                g.Clear(Color.White);
+
+                // Draw all the lines onto the bitmap
+                foreach (SaveData line in lines)
+                {
+                    g.DrawLine(line.Pen, line.StartPoint, line.EndPoint);
+                }
+            }
+
+            // Save the bitmap using the provided file path
+            bitmap.Save(filePath, imageFormat);
+            bitmap.Dispose();
 
             MessageBox.Show("Image saved successfully.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
