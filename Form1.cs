@@ -18,6 +18,9 @@ namespace CrudePaint
         private Color mouseRB = Color.White;
         private bool isDrawing = false;
         private List<SaveData> lines;
+        private object filePathLock = new object();
+        private string saveFilePath = string.Empty;
+
         public Form1()
         {
             InitializeComponent();
@@ -102,33 +105,45 @@ namespace CrudePaint
             {
                 string filePath = openFileDialog.FileName;
 
-                // Load the selected image file
-                Image image = Image.FromFile(filePath);
-                drawingBoard.BackgroundImage = image;
+                // Create a new bitmap from the selected image file
+                Bitmap bitmap = new Bitmap(filePath);
+
+                // Set the bitmap as the background image of the drawing board
+                drawingBoard.BackgroundImage = new Bitmap(bitmap);
 
                 // Clear the drawing board and reset the current file path
                 drawingBoard.Refresh();
-                currentFilePath = filePath;
+                currentFilePath = string.Empty;
+
+                // Dispose the original bitmap to release the file reference
+                bitmap.Dispose();
             }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(currentFilePath))
+            if (string.IsNullOrEmpty(saveFilePath))
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "JPEG Image|*.jpeg|PNG Image|*.png";
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    currentFilePath = saveFileDialog.FileName;
-                }
-                else
-                {
-                    return; // User canceled the save operation
+                    saveFilePath = saveFileDialog.FileName;
+                    SaveImage(saveFilePath);
                 }
             }
-
-            string extension = Path.GetExtension(currentFilePath).ToLower();
+            else
+            {
+                DialogResult result = MessageBox.Show("Do you want to overwrite the existing file?", "Save", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    SaveImage(saveFilePath);
+                }
+            }
+        }
+        private void SaveImage(string filePath)
+        {
+            string extension = Path.GetExtension(filePath).ToLower();
             ImageFormat imageFormat = ImageFormat.Jpeg;
 
             if (extension == ".png")
@@ -136,20 +151,17 @@ namespace CrudePaint
                 imageFormat = ImageFormat.Png;
             }
 
+            // Create a new bitmap and copy the drawing board content onto it
             Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
-            using (Graphics g = Graphics.FromImage(bitmap))
-            {
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.Clear(Color.White); // Clear with white background
+            drawingBoard.DrawToBitmap(bitmap, new Rectangle(0, 0, drawingBoard.Width, drawingBoard.Height));
 
-                // Draw the lines on the bitmap
-                foreach (var line in lines)
-                {
-                    g.DrawLine(line.Pen, line.StartPoint, line.EndPoint);
-                }
-            }
+            // Save the image using the provided file path
+            bitmap.Save(filePath, imageFormat);
 
-            bitmap.Save(currentFilePath, imageFormat);
+            // Dispose the bitmap object
+            bitmap.Dispose();
+
+            MessageBox.Show("Image saved successfully.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void jPGToolStripMenuItem_Click(object sender, EventArgs e)
