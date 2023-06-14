@@ -174,11 +174,14 @@ namespace CrudePaint
                 // Fill the entire bitmap with white color
                 g.Clear(Color.White);
 
-                // Draw all the lines onto the bitmap
+                // Draw the existing lines onto the bitmap
                 foreach (SaveData line in lines)
                 {
                     g.DrawLine(line.Pen, line.StartPoint, line.EndPoint);
                 }
+
+                // Draw the current drawing onto the bitmap
+                g.DrawImage(drawingBitmap, Point.Empty);
             }
 
             // Save the bitmap using the provided file path
