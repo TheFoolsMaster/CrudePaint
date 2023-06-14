@@ -55,6 +55,8 @@ namespace CrudePaint
                 startPoint = e.Location;
                 isDrawing = true;
                 pen = new Pen(e.Button == MouseButtons.Left ? mouseLB : mouseRB, penWidth);
+                pen.StartCap = LineCap.Round; // Set the start cap to round
+                pen.EndCap = LineCap.Round; // Set the end cap to round
             }
         }
 
@@ -239,6 +241,8 @@ namespace CrudePaint
             int trackBarValue = widthTrackBar.Value;
             penWidth = trackBarValue;
             pen.Width = penWidth;
+            pen.StartCap = LineCap.Round; // Set the start cap to round
+            pen.EndCap = LineCap.Round; // Set the end cap to round
 
             // Update the pen width label
             lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
