@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            drawingBoard = new Panel();
             widthTrackBar = new TrackBar();
             btnEraser = new Button();
             menuStrip1 = new MenuStrip();
@@ -44,22 +43,13 @@
             colourPickerLB = new PictureBox();
             colourPickerRB = new PictureBox();
             lbl_PenWidth = new Label();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)widthTrackBar).BeginInit();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)colourPickerLB).BeginInit();
             ((System.ComponentModel.ISupportInitialize)colourPickerRB).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // drawingBoard
-            // 
-            drawingBoard.BackColor = Color.White;
-            drawingBoard.Location = new Point(12, 120);
-            drawingBoard.Name = "drawingBoard";
-            drawingBoard.Size = new Size(776, 318);
-            drawingBoard.TabIndex = 0;
-            drawingBoard.MouseDown += drawingBoard_MouseDown;
-            drawingBoard.MouseMove += drawingBoard_MouseMove;
-            drawingBoard.MouseUp += drawingBoard_MouseUp;
             // 
             // widthTrackBar
             // 
@@ -180,17 +170,28 @@
             lbl_PenWidth.TabIndex = 10;
             lbl_PenWidth.Text = "Pen Width:";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(12, 109);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(776, 338);
+            pictureBox1.TabIndex = 11;
+            pictureBox1.TabStop = false;
+            pictureBox1.MouseDown += pictureBox1_MouseDown;
+            pictureBox1.MouseMove += pictureBox1_MouseMove;
+            pictureBox1.MouseUp += pictureBox1_MouseUp;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(pictureBox1);
             Controls.Add(lbl_PenWidth);
             Controls.Add(colourPickerRB);
             Controls.Add(colourPickerLB);
             Controls.Add(btnEraser);
             Controls.Add(widthTrackBar);
-            Controls.Add(drawingBoard);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
@@ -200,13 +201,12 @@
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)colourPickerLB).EndInit();
             ((System.ComponentModel.ISupportInitialize)colourPickerRB).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Panel drawingBoard;
         private TrackBar widthTrackBar;
         private Button btnEraser;
         private MenuStrip menuStrip1;
@@ -222,5 +222,6 @@
         private PictureBox colourPickerLB;
         private PictureBox colourPickerRB;
         private Label lbl_PenWidth;
+        private PictureBox pictureBox1;
     }
 }

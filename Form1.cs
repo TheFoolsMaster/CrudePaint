@@ -25,7 +25,7 @@ namespace CrudePaint
         public Form1()
         {
             InitializeComponent();
-            drawingBoard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerLB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             colourPickerRB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             pen = new Pen(mouseLB, penWidth);
@@ -38,24 +38,24 @@ namespace CrudePaint
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            // Create the initial drawing bitmap with the same size as the drawing board
-            drawingBitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+            // Create the initial drawing bitmap with the same size as the picture box
+            drawingBitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             graphics = Graphics.FromImage(drawingBitmap);
-            drawingBoard.BackgroundImage = drawingBitmap;
+            pictureBox1.Image = drawingBitmap;
         }
 
-        private void drawingBoard_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
             {
-                drawingBoard.Capture = true;
+                pictureBox1.Capture = true;
                 startPoint = e.Location;
                 isDrawing = true;
                 pen = new Pen(e.Button == MouseButtons.Left ? mouseLB : mouseRB, penWidth);
             }
         }
 
-        private void drawingBoard_MouseMove(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDrawing)
             {
@@ -65,7 +65,7 @@ namespace CrudePaint
                     graphics.DrawLine(pen, startPoint, e.Location);
                     lines.Add(new SaveData { Pen = new Pen(pen.Color, pen.Width), StartPoint = startPoint, EndPoint = e.Location });
                     startPoint = e.Location;
-                    drawingBoard.Invalidate(); // Invalidate the drawing board to request a redraw
+                    pictureBox1.Invalidate(); // Invalidate the picture box to request a redraw
                 }
                 else if (e.Button == MouseButtons.Right)
                 {
@@ -73,21 +73,21 @@ namespace CrudePaint
                     graphics.DrawLine(pen, startPoint, e.Location);
                     lines.Add(new SaveData { Pen = new Pen(pen.Color, pen.Width), StartPoint = startPoint, EndPoint = e.Location });
                     startPoint = e.Location;
-                    drawingBoard.Invalidate(); // Invalidate the drawing board to request a redraw
+                    pictureBox1.Invalidate(); // Invalidate the picture box to request a redraw
                 }
             }
         }
 
-        private void drawingBoard_MouseUp(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
             {
-                drawingBoard.Capture = false;
+                pictureBox1.Capture = false;
                 isDrawing = false;
             }
         }
 
-        private void drawingBoard_Paint(object sender, PaintEventArgs e)
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             // Draw the off-screen buffer onto the screen
             e.Graphics.DrawImage(offScreenBitmap, Point.Empty);
@@ -106,7 +106,7 @@ namespace CrudePaint
                 // Clear the drawing bitmap and lines
                 graphics.Clear(Color.Transparent);
                 lines.Clear();
-                drawingBoard.Invalidate();
+                pictureBox1.Invalidate();
                 currentFilePath = string.Empty;
             }
         }
@@ -122,9 +122,9 @@ namespace CrudePaint
                 // Clear the lines and create a new drawing bitmap
                 lines.Clear();
                 drawingBitmap.Dispose();
-                drawingBitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+                drawingBitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
                 graphics = Graphics.FromImage(drawingBitmap);
-                drawingBoard.BackgroundImage = drawingBitmap;
+                pictureBox1.Image = drawingBitmap;
 
                 // Load the image as the drawing bitmap
                 using (Bitmap bitmap = new Bitmap(filePath))
@@ -132,7 +132,7 @@ namespace CrudePaint
                     graphics.DrawImage(bitmap, Point.Empty);
                 }
 
-                drawingBoard.Invalidate();
+                pictureBox1.Invalidate();
                 currentFilePath = filePath;
             }
         }
@@ -165,8 +165,8 @@ namespace CrudePaint
                 imageFormat = ImageFormat.Png;
             }
 
-            // Create a new bitmap with the same size as the drawing board
-            Bitmap bitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+            // Create a new bitmap with the same size as the picture box
+            Bitmap bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
             // Create a graphics object from the new bitmap
             using (Graphics g = Graphics.FromImage(bitmap))
@@ -241,14 +241,14 @@ namespace CrudePaint
             lbl_PenWidth.Text = $"Pen Width: {penWidth}px";
         }
 
-        private void drawingBoard_Resize(object sender, EventArgs e)
+        private void pictureBox1_Resize(object sender, EventArgs e)
         {
             // Recreate the off-screen buffer with the new size
             if (offScreenBitmap != null)
             {
                 offScreenBitmap.Dispose();
             }
-            offScreenBitmap = new Bitmap(drawingBoard.Width, drawingBoard.Height);
+            offScreenBitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             graphics = Graphics.FromImage(offScreenBitmap);
             graphics.DrawImage(drawingBitmap, Point.Empty);
         }
