@@ -177,8 +177,11 @@ namespace CrudePaint
             // Create a graphics object from the new bitmap
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                // Fill the entire bitmap with white color
-                g.Clear(Color.White);
+                // Make the background transparent for PNG format
+                if (imageFormat == ImageFormat.Png)
+                {
+                    bitmap.MakeTransparent();
+                }
 
                 // Draw the existing lines onto the bitmap
                 foreach (SaveData line in lines)
