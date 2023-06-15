@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             widthTrackBar = new TrackBar();
-            btnEraser = new Button();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
@@ -59,15 +58,6 @@
             widthTrackBar.Size = new Size(104, 45);
             widthTrackBar.TabIndex = 5;
             widthTrackBar.ValueChanged += widthTrackBar_ValueChanged;
-            // 
-            // btnEraser
-            // 
-            btnEraser.Location = new Point(700, 51);
-            btnEraser.Name = "btnEraser";
-            btnEraser.Size = new Size(76, 52);
-            btnEraser.TabIndex = 6;
-            btnEraser.Text = "Eraser";
-            btnEraser.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -192,7 +182,6 @@
             Controls.Add(lbl_PenWidth);
             Controls.Add(colourPickerRB);
             Controls.Add(colourPickerLB);
-            Controls.Add(btnEraser);
             Controls.Add(widthTrackBar);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -210,7 +199,6 @@
 
         #endregion
         private TrackBar widthTrackBar;
-        private Button btnEraser;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem newToolStripMenuItem;
