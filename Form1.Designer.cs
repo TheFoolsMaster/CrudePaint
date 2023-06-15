@@ -186,7 +186,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
-            Text = "Form1";
+            Text = "CrudePaint";
             ((System.ComponentModel.ISupportInitialize)widthTrackBar).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
